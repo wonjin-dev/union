@@ -15,4 +15,6 @@ db.once('open', () => {
     console.log('DB 연결');
 });
 
+app.use('/', require('./controllers/union'));
+
 module.exports = app;
