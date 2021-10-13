@@ -6,6 +6,9 @@ router.get("/", (req, res) => {
     res.render('index.html');
 });
 
+router.get('/addUnion', (req, res) => {
+    res.render('addUnion.html');
+});
 router.post('/addUnion', async(req, res) => {
     const role = req.body.role;
     const lv = req.body.lv;
