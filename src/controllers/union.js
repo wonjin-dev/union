@@ -3,28 +3,30 @@ const express = require('express');
 const router = express.Router();
 
 const findCharacters = async() => {
+    const filteredArray = [];
     const findList = await characterModel.find({});
-    return findList;
+
+    for(i in findList){
+        role=findList[i].role
+        lv=findList[i].lv
+        filteredArray.push({role:role,lv:lv});
+        }
+    return filteredArray;
 }
 
-const sumList = async() => {
-    let findList = await findCharacters();
-    if(!findList){
-        return '캐릭터가 존재하지 않습니다.'
-    }
-    let unionList =[];
+const sumList = async(findList) => {
+    let unionSum = 0;
     for(i in findList){
-        unionList.push(findList[i].lv)
+        unionSum += findList[i].lv
     }
-    const sum = (pre, now) => pre + now;
-    let sumArray = unionList.reduce(sum);
-    return sumArray
+    return unionSum
 }
 
 router.get("/", async(req, res) => {
     let unionList = await findCharacters();
-    let unionLv = await sumList();
-    return res.render('index.html', {unionList, unionLv});
+    let unionLv = await sumList(unionList);
+    
+    return res.render('index.html', {unionLv, unionList});
 });
 router.get('/addUnion', (req, res) => {
     res.render('addUnion.html');
@@ -44,7 +46,7 @@ router.post('/addUnion', async(req, res) => {
         } else {
             let unionList = await findCharacters();
             let unionLv = await sumList();
-            return res.render('index.html', {unionList, unionLv});
+            return res.render('index.html', {unionLv, unionList});
         }
     });
 });

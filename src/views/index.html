@@ -4,8 +4,15 @@
     <title>Maple Story - Union</title>
 </head>
 <body>
-    <%=unionLv%>
-    <%=unionList%>
+    <h1>
+        현재 유니온: <%=unionLv%>
+    </h1>
+<ol>
+    <% for(var i =0; i<unionList.length;i++) { %>
+        <li>직업: <%= unionList[i].role%> 레벨: <%=unionList[i].lv%></li>
+    <% } %>
+</ol>
+
     <a href="/addUnion">추가</a>
 </body>
 </html>
