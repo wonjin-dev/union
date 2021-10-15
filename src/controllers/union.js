@@ -2,19 +2,24 @@ const characterModel = require('../models/character');
 const express = require('express');
 const router = express.Router();
 
-const unionSum = async() => {
+const findCharacters = async() => {
     const findList = await characterModel.find({});
-    const sum = (pre, now) => pre + now;
     let unionList =[];
     for(i in findList){
         unionList.push(findList[i].lv)
     }
+    return unionList;
+}
+
+const sumList = async() => {
+    const sum = (pre, now) => pre + now;
+    let unionList = await findCharacters();
     let unionLv = unionList.reduce(sum);
     return unionLv
 }
 
 router.get("/", (req, res) => {
-    res.render('index.html');
+    return res.render('index.html');
 });
 
 router.get('/addUnion', (req, res) => {
