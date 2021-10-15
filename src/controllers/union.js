@@ -46,6 +46,7 @@ router.post('/addUnion', async(req, res) => {
         } else {
             let unionList = await findCharacters();
             let unionLv = await sumList();
+            res.redirect('/');
             return res.render('index.html', {unionLv, unionList});
         }
     });
