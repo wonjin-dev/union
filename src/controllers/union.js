@@ -4,24 +4,28 @@ const router = express.Router();
 
 const findCharacters = async() => {
     const findList = await characterModel.find({});
+    return findList;
+}
+
+const sumList = async() => {
+    let findList = await findCharacters();
+    if(!findList){
+        return '캐릭터가 존재하지 않습니다.'
+    }
     let unionList =[];
     for(i in findList){
         unionList.push(findList[i].lv)
     }
-    return unionList;
-}
-
-const sumList = async() => {
     const sum = (pre, now) => pre + now;
-    let unionList = await findCharacters();
-    let unionLv = unionList.reduce(sum);
-    return unionLv
+    let sumArray = unionList.reduce(sum);
+    return sumArray
 }
 
-router.get("/", (req, res) => {
-    return res.render('index.html');
+router.get("/", async(req, res) => {
+    let unionList = await findCharacters();
+    let unionLv = await sumList();
+    return res.render('index.html', {unionList, unionLv});
 });
-
 router.get('/addUnion', (req, res) => {
     res.render('addUnion.html');
 });
@@ -34,12 +38,13 @@ router.post('/addUnion', async(req, res) => {
         lv: lv
     });
 
-    await character.save((err) => {
+    await character.save(async(err) => {
         if(err){
             return console.log(err);
         } else {
-            console.log('캐릭터 레벨 추가 완료');
-            return res.render('index.html');
+            let unionList = await findCharacters();
+            let unionLv = await sumList();
+            return res.render('index.html', {unionList, unionLv});
         }
     });
 });
