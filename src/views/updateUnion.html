@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maple Story - Union</title>
+</head>
+<body>
+    <form action="/updateUnion" method="post">
+        <% for(var i =0; i<unionList.length;i++) { %>
+            <input type="text" name="role" placeholder="<%=unionList[i].role%>" />
+            <input type="number" name="lv" placeholder="<%=unionList[i].lv%>" /><br>
+        <% } %>
+        <input type="submit" value="저장" />
+    </form>
+</body>
+</script>
+</html>

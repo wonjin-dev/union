@@ -8,6 +8,9 @@ const characterSchema = new mongoose.Schema({
     lv: {
         type: Number,
         required: true
+    },
+    updated: {
+        type: Date
     }
 });
 

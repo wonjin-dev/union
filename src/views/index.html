@@ -7,12 +7,15 @@
     <h1>
         현재 유니온: <%=unionLv%>
     </h1>
-<ol>
-    <% for(var i =0; i<unionList.length;i++) { %>
-        <li>직업: <%= unionList[i].role%> 레벨: <%=unionList[i].lv%></li>
-    <% } %>
-</ol>
-
+    <ol>
+        <% for(var i =0; i<unionList.length;i++) { %>
+            <li>
+                직업: <%=unionList[i].role%><br>
+                레벨: <%=unionList[i].lv%><br><br>
+            </li>   
+        <% } %>
+    </ol>
+    <a href="/updateUnion">수정</a>
     <a href="/addUnion">추가</a>
 </body>
 </html>

@@ -22,6 +22,7 @@ const sumList = async(findList) => {
     return unionSum
 }
 
+// routes
 router.get("/", async(req, res) => {
     let unionList = await findCharacters();
     let unionLv = await sumList(unionList);
@@ -29,8 +30,13 @@ router.get("/", async(req, res) => {
     return res.render('index.html', {unionLv, unionList});
 });
 router.get('/addUnion', (req, res) => {
-    res.render('addUnion.html');
+    return res.render('addUnion.html');
 });
+router.get('/updateUnion', async(req, res) => {
+    let unionList = await findCharacters();
+    return res.render('updateUnion.html', {unionList});
+});
+// route + function
 router.post('/addUnion', async(req, res) => {
     const role = req.body.role;
     const lv = req.body.lv;
@@ -50,6 +56,9 @@ router.post('/addUnion', async(req, res) => {
             return res.render('index.html', {unionLv, unionList});
         }
     });
+});
+router.post('/updateUnion', (req, res) => {
+    //
 });
 
 module.exports = router;
