@@ -5,10 +5,18 @@
 </head>
 <body>
     <form action="/updateUnion" method="post">
-        <% for(var i =0; i<unionList.length;i++) { %>
-            <input type="text" name="role" placeholder="<%=unionList[i].role%>" />
-            <input type="number" name="lv" placeholder="<%=unionList[i].lv%>" /><br>
-        <% } %>
+        <ol>
+            <% for(var i =0; i<unionList.length; i++) { %>
+                <li>
+                    <label>
+                        직업: <%=unionList[i].role%><br>
+                        <input type="number" name="lv" placeholder="<%=unionList[i].lv%>" /><br>
+                        Date: <%=unionList[i].date%>
+                        <br><br>
+                    </label>
+                </li>
+            <% } %>
+        </ol>
         <input type="submit" value="저장" />
     </form>
 </body>

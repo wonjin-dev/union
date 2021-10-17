@@ -10,7 +10,8 @@ const characterSchema = new mongoose.Schema({
         required: true
     },
     updated: {
-        type: Date
+        type: Date,
+        default: Date.now()
     }
 });
 
