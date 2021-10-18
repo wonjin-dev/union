@@ -4,19 +4,25 @@ const router = express.Router();
 
 const findCharacters = async() => {
     const filteredArray = [];
-    const findList = await characterModel.find({});
-    for(i in findList){
-        role=findList[i].role
-        lv=findList[i].lv
-        updated=findList[i].updated
-        filteredArray.push({role:role, lv:lv, date:updated});
+    const findList = await characterModel.find().sort({'lv':-1});
+        for(i in findList){
+            role=findList[i].role
+            lv=findList[i].lv
+            updated=findList[i].updated
+            filteredArray.push({role:role, lv:lv, date:updated});
         }
     return filteredArray;
 }
 const sumList = async(findList) => {
     let unionSum = 0;
-    for(i in findList){
-        unionSum += findList[i].lv
+    if(findList.length>40){
+        for(let i=0; i<=39; i++){
+            unionSum += findList[i].lv
+        }
+    } else {
+        for(i in findList){
+            unionSum += findList[i].lv
+        }
     }
     return unionSum
 }
