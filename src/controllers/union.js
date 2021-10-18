@@ -16,7 +16,7 @@ const findCharacters = async() => {
 const sumList = async(findList) => {
     let unionSum = 0;
     if(findList.length>40){
-        for(let i=0; i<=39; i++){
+        for(i=0; i<=39; i++){
             unionSum += findList[i].lv
         }
     } else {
