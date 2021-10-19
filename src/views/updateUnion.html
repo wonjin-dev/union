@@ -11,8 +11,9 @@
             <li>
                 <form action="/updateUnion" method="post">
                     <label>
-                        <input type="text" name="role" value="<%=unionList[i].role%>" /><br>
-                        <input type="number" name="updatedLv" value="<%=unionList[i].lv%>" /><br>
+                        캐릭명: <input type="text" name="name" value="<%=unionList[i].name%>" readonly="readonly" /><br>
+                        직업: <%=unionList[i].role%><br>
+                        Lv: <input type="number" name="updatedLv" value="<%=unionList[i].lv%>" /><br>
                         Date: <%=unionList[i].date%>
                         <input type="submit" value="수정" />
                         <br><br>
