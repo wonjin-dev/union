@@ -19,10 +19,10 @@ const sumList = async(findList) => {
         for(i=0; i<=39; i++){
             unionSum += findList[i].lv
         }
-    } else {
-        for(i in findList){
-            unionSum += findList[i].lv
-        }
+        return unionSum
+    }
+    for(i in findList){
+        unionSum += findList[i].lv
     }
     return unionSum
 }
@@ -49,19 +49,22 @@ router.post('/addUnion', async(req, res) => {
     });
     await character.save(async() => {
         let unionList = await findCharacters();
-        let unionLv = await sumList();
+        let unionLv = await sumList(unionList);
         res.redirect('/');
         return res.render('index.html', {unionLv, unionList});
     });
 });
 router.post('/updateUnion', async(req, res) => {
     const role = req.body.role;
-    const lv = req.body.lv;
-
+    const lv = req.body.updatedLv;
+    const findCharacter = await characterModel.find({role:role});
+    const Oid = findCharacter[0]._id;
+    const update = async() => {
+        await characterModel.findByIdAndUpdate(Oid, {$set: {lv:lv}});
+    }
+    await update();
     let unionList = await findCharacters();
-    let unionLv = await sumList(unionList);
-    res.redirect('/');
-    return res.render('index.html', {unionList, unionLv});
+    return res.render('updateUnion.html', {unionList});
     });
 
 module.exports = router;

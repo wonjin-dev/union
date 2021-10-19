@@ -4,21 +4,21 @@
     <title>Maple Story - Union</title>
 </head>
 <body>
-    <form action="/updateUnion" method="post">
-        <ol>
-            <% for(var i =0; i<unionList.length; i++) { %>
-                <li>
+    <ol>
+        <% for(var i =0; i<unionList.length; i++) { %>
+            <li>
+                <form action="/updateUnion" method="post">
                     <label>
-                        직업: <%=unionList[i].role%><br>
-                        <input type="number" name="lv" placeholder="<%=unionList[i].lv%>" /><br>
+                        <input type="text" name="role" value="<%=unionList[i].role%>" /><br>
+                        <input type="number" name="updatedLv" value="<%=unionList[i].lv%>" /><br>
                         Date: <%=unionList[i].date%>
+                        <input type="submit" value="수정" />
                         <br><br>
                     </label>
-                </li>
+                </form>
+            </li>
             <% } %>
         </ol>
-        <input type="submit" value="저장" />
-    </form>
 </body>
 </script>
 </html>
