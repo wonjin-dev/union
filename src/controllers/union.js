@@ -1,22 +1,25 @@
 const characterModel = require('../models/character');
 const express = require('express');
 const router = express.Router();
-
 const findCharacters = async() => {
     const filteredArray = [];
     const findList = await characterModel.find().sort({'lv':-1});
-        for(i in findList){
-            role=findList[i].role
-            lv=findList[i].lv
-            updated=findList[i].updated
-            filteredArray.push({role:role, lv:lv, date:updated});
-        }
+    for(i in findList){
+        filteredArray.push(
+            {
+                name: findList[i].name,
+                role: findList[i].role,
+                lv: findList[i].lv,
+                date: findList[i].updated
+            }
+        );
+    }
     return filteredArray;
 }
 const sumList = async(findList) => {
     let unionSum = 0;
-    if(findList.length>40){
-        for(i=0; i<=39; i++){
+    if(findList.length > 40){
+        for(i=0; i < 40; i++){
             unionSum += findList[i].lv
         }
         return unionSum
@@ -41,30 +44,20 @@ router.get('/updateUnion', async(req, res) => {
 });
 // route + function
 router.post('/addUnion', async(req, res) => {
-    const role = req.body.role;
-    const lv = req.body.lv;
-    let character = await new characterModel({
+    const {name, role, lv} = req.body;
+    const character = await new characterModel({
+        name: name,
         role: role,
         lv: lv
     });
-    await character.save(async() => {
-        let unionList = await findCharacters();
-        let unionLv = await sumList(unionList);
-        res.redirect('/');
-        return res.render('index.html', {unionLv, unionList});
-    });
+    await character.save();
+    res.redirect('/');
 });
 router.post('/updateUnion', async(req, res) => {
-    const role = req.body.role;
-    const lv = req.body.updatedLv;
-    const findCharacter = await characterModel.find({role:role});
-    const Oid = findCharacter[0]._id;
-    const update = async() => {
-        await characterModel.findByIdAndUpdate(Oid, {$set: {lv:lv}});
-    }
-    await update();
-    let unionList = await findCharacters();
-    return res.render('updateUnion.html', {unionList});
-    });
+    const {name, updatedLv} = req.body;
+    const findCharacter = await characterModel.find({name: name});
+    await characterModel.findByIdAndUpdate(findCharacter[0]._id, {$set: {lv: updatedLv}});
+    return res.redirect('/updateUnion');
+});
 
 module.exports = router;
