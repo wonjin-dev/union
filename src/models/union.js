@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const unionSchema = new mongoose.Schema({
@@ -7,7 +8,19 @@ const unionSchema = new mongoose.Schema({
     },
     updated: {
         type: Date,
-        default: Date.now()
+        default: moment().add(9, 'hours').format('YYYY-MM-DD hh:mm:ss')
+    },
+    updatedyear: {
+        type: Number,
+        default: moment().add(9, 'hours').year()
+    },
+    updatedmonth: {
+        type: Number,
+        default: moment().add(9, 'hours').month()
+    },
+    updatedday: {
+        type: Number,
+        default: moment().add(9, 'hours').day()
     }
 });
 

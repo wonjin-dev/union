@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const characterSchema = new mongoose.Schema({
@@ -16,7 +17,7 @@ const characterSchema = new mongoose.Schema({
     },
     updated: {
         type: Date,
-        default: Date.now()
+        default: moment().add(9, 'hours').format('YYYY-MM-DD hh:mm:ss')
     }
 });
 
