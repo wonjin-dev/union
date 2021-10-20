@@ -1,4 +1,5 @@
 const characterModel = require('../models/character');
+const unionModel = require('../models/union');
 const express = require('express');
 const router = express.Router();
 const findCharacters = async() => {
@@ -15,7 +16,7 @@ const findCharacters = async() => {
             );
         }
         return filteredArray;
-    }
+}
 const sumList = async(findList) => {
     let unionSum = 0;
     if(findList.length > 40){
@@ -30,12 +31,17 @@ const sumList = async(findList) => {
     return unionSum
 }
 const deleteCharacter = (model, _id) => {
-    model.deleteOne(_id, () => {});
+    model.deleteOne(_id, (err)=>{
+        if(err){
+            console.log('삭제 실패');
+        }
+    });
 }
 // routes
 router.get("/", async(req, res) => {
     const unionList = await findCharacters();
-    const unionLv = await sumList(unionList);
+    const findUnionSum = await unionModel.find().sort({updated: -1}).limit(1);
+    const unionLv = findUnionSum[0].lv;
     return res.render('index.html', {unionLv, unionList});
 });
 router.get('/addUnion', (req, res) => {
@@ -54,6 +60,13 @@ router.post('/addUnion', async(req, res) => {
         lv: lv
     });
     await character.save();
+    const findList = await characterModel.find().sort({'lv':-1}).limit(40);
+    console.log(findList)
+    const unionSumLv = await sumList(findList);
+    const sumLv = await new unionModel({
+        lv: unionSumLv
+    });
+    await sumLv.save();
     res.redirect('/');
 });
 router.post('/updateUnion', async(req, res) => {
