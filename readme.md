@@ -39,4 +39,4 @@ MongooseError: Query was already executed
 ```
 
 > cause: Mongoose no longer allows executing the same query object twice
-> solution: Asynchronous control using Try, Catch
+> solution: Seperate Query Function Find from Delete

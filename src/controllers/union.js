@@ -12,10 +12,10 @@ const findCharacters = async() => {
                 lv: findList[i].lv,
                 date: findList[i].updated
             }
-        );
+            );
+        }
+        return filteredArray;
     }
-    return filteredArray;
-}
 const sumList = async(findList) => {
     let unionSum = 0;
     if(findList.length > 40){
@@ -28,6 +28,9 @@ const sumList = async(findList) => {
         unionSum += findList[i].lv
     }
     return unionSum
+}
+const deleteCharacter = (model, _id) => {
+    model.deleteOne(_id, () => {});
 }
 // routes
 router.get("/", async(req, res) => {
@@ -61,14 +64,9 @@ router.post('/updateUnion', async(req, res) => {
 });
 router.post('/deleteUnion', async(req, res) => {
     const {name} = req.body;
-    try{
         const findCharacter = await characterModel.find({name: name});
-        await characterModel.deleteOne(findCharacter[0]._id, () => {
-            return res.redirect('/');
-        });
-    } catch {
-        console.log('캐릭터 제거 실패')
-    }
+        deleteCharacter(characterModel, findCharacter[0]._id);
+        return res.redirect('/');
 });
 
 module.exports = router;
