@@ -2,7 +2,7 @@ const characterModel = require('../models/character');
 const express = require('express');
 const router = express.Router();
 const findCharacters = async() => {
-    const filteredArray = [];
+    let filteredArray = [];
     const findList = await characterModel.find().sort({'lv':-1});
     for(i in findList){
         filteredArray.push(
@@ -31,15 +31,15 @@ const sumList = async(findList) => {
 }
 // routes
 router.get("/", async(req, res) => {
-    let unionList = await findCharacters();
-    let unionLv = await sumList(unionList);
+    const unionList = await findCharacters();
+    const unionLv = await sumList(unionList);
     return res.render('index.html', {unionLv, unionList});
 });
 router.get('/addUnion', (req, res) => {
     return res.render('addUnion.html');
 });
 router.get('/updateUnion', async(req, res) => {
-    let unionList = await findCharacters();
+    const unionList = await findCharacters();
     return res.render('updateUnion.html', {unionList});
 });
 // route + function
@@ -57,6 +57,18 @@ router.post('/updateUnion', async(req, res) => {
     const {name, updatedLv} = req.body;
     const findCharacter = await characterModel.find({name: name});
     await characterModel.findByIdAndUpdate(findCharacter[0]._id, {$set: {lv: updatedLv}});
+    return res.redirect('/updateUnion');
+});
+router.post('/deleteUnion', async(req, res) => {
+    const {name} = req.body;
+    const findCharacter = await characterModel.find({name: name});
+    await characterModel.findByIdAndDelete(findCharacter[0]._id, (err) => {
+        if(err){
+            console.error(err);
+        } else {
+            console.log('캐릭터 정보 삭제 완료');
+        }
+    })
     return res.redirect('/updateUnion');
 });
 
