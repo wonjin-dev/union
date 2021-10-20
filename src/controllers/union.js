@@ -67,9 +67,9 @@ router.post('/deleteUnion', async(req, res) => {
             console.error(err);
         } else {
             console.log('캐릭터 정보 삭제 완료');
+            return res.redirect('/updateUnion');
         }
     })
-    return res.redirect('/updateUnion');
 });
 
 module.exports = router;
