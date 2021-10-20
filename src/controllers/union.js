@@ -61,15 +61,14 @@ router.post('/updateUnion', async(req, res) => {
 });
 router.post('/deleteUnion', async(req, res) => {
     const {name} = req.body;
-    const findCharacter = await characterModel.find({name: name});
-    await characterModel.findByIdAndDelete(findCharacter[0]._id, (err) => {
-        if(err){
-            console.error(err);
-        } else {
-            console.log('캐릭터 정보 삭제 완료');
-            return res.redirect('/updateUnion');
-        }
-    })
+    try{
+        const findCharacter = await characterModel.find({name: name});
+        await characterModel.deleteOne(findCharacter[0]._id, () => {
+            return res.redirect('/');
+        });
+    } catch {
+        console.log('캐릭터 제거 실패')
+    }
 });
 
 module.exports = router;

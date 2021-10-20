@@ -29,4 +29,14 @@
 [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client at ServerResponse.setHeader
 ```
 
-> cause: Two responses to one Request
+> cause: Two Responses to one Request
+> solution: Send 1 Response
+
+= [x] ***Fix 2***
+
+```
+MongooseError: Query was already executed
+```
+
+> cause: Mongoose no longer allows executing the same query object twice
+> solution: Asynchronous control using Try, Catch
