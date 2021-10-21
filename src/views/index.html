@@ -10,9 +10,9 @@
     <h1>
         현재 유니온: <%=unionLv%>
     </h1>
+
     <div id="sumLv"></div>
     <script>
-        console.log(<%=graphArray%>);
         let chart = c3.generate({
             bindto: '#sumLv',
             data: {
@@ -22,6 +22,7 @@
             }
         });
     </script>
+
     <h2>
         유니온 리스트
     </h2>
