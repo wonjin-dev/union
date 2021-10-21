@@ -1,3 +1,10 @@
+## Get Started
+1. Download in 'src/dist/lib'
+<ul>
+    <li><a href="http://b1ix.net/post_inc/c3js/c3.css">c3.min.css</a><br></li>
+    <li><a href="http://b1ix.net/post_inc/c3js/c3.js">c3.min.js</a><br></li>
+</ul>
+
 ## Feat
 
 - [x] Formating Date using Moment <br>
