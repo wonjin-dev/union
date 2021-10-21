@@ -72,16 +72,28 @@ const resaveSumLv = async(lv) => {
     }
 }
 
+const forGraph = async() => {
+    let recentArray = [];
+    let searchRecent = await unionModel.find().sort({ updated: -1 }).limit(5);
+    if(searchRecent.length < 5){
+        recentArray = [0,0,0,0,0];
+    } else {
+        recentArray = [searchRecent[4].lv, searchRecent[3].lv, searchRecent[2].lv, searchRecent[1].lv, searchRecent[0].lv];
+    }
+    return recentArray;
+}
+
 router.get("/", async(req, res) => {
     try{
         const unionList = await findCharacters();
         const LastUnion = await unionModel.find().sort({ updated: -1 }).limit(1);
+        const graphArray = await forGraph();
         if(LastUnion.length === 0){
             unionLv = 0;
         } else {
             unionLv = 0 + LastUnion[0].lv;
         }
-        return res.render('index.html', { unionLv, unionList });
+        return res.render('index.html', { graphArray, unionLv, unionList });
     } catch {
         console.log('\'/\' 라우팅 실패');
     }
