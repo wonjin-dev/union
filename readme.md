@@ -1,5 +1,7 @@
 ## Feat
 
+- [x] Formating Date using Moment <br>
+
 - [x] Show the List of Characters in Database <br>
 
 - [x] Update & Delete Union characters level in one page <br>
@@ -13,11 +15,7 @@
 ## TO DO LIST _211020
 
 - [ ] Draw the graph of UnionLv using C3.js
-> - Accumulated graph <br>
-
-- [ ] 시간의 흐름에 따른 유니온 총 합 배열 생성 로직 만들기 <br>
-
-- [ ] moment 라이브러리를 사용하여 날짜 포매팅 하기
+> - Accumulated graph by date<br>
 
 <br><hr><br>
 
@@ -29,14 +27,14 @@
 [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client at ServerResponse.setHeader
 ```
 
-> cause: Two Responses to one Request
+> cause: Two Responses to one Request <br>
 > solution: Send 1 Response
 
-= [x] ***Fix 2***
+- [x] ***Fix 2***
 
 ```
 MongooseError: Query was already executed
 ```
 
-> cause: Mongoose no longer allows executing the same query object twice
+> cause: Mongoose no longer allows executing the same query object twice <br>
 > solution: Seperate Query Function Find from Delete
