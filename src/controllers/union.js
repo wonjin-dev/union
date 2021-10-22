@@ -73,14 +73,18 @@ const resaveSumLv = async(lv) => {
 }
 
 const forGraph = async() => {
-    let recentArray = [];
-    let searchRecent = await unionModel.find().sort({ updated: -1 }).limit(5);
-    if(searchRecent.length < 5){
-        recentArray = [0,0,0,0,0];
-    } else {
-        recentArray = [searchRecent[4].lv, searchRecent[3].lv, searchRecent[2].lv, searchRecent[1].lv, searchRecent[0].lv];
+    try{
+        let recentArray = [];
+        let searchRecent = await unionModel.find().sort({ updated: -1 }).limit(5);
+        if(searchRecent.length < 5){
+            recentArray = [0,0,0,0,0];
+        } else {
+            recentArray = [searchRecent[4].lv, searchRecent[3].lv, searchRecent[2].lv, searchRecent[1].lv, searchRecent[0].lv];
+        }
+        return recentArray;
+    } catch {
+        console.log('그래프 배열 생성 실패');
     }
-    return recentArray;
 }
 
 router.get("/", async(req, res) => {

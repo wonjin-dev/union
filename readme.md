@@ -5,16 +5,16 @@
     <li><a href="http://b1ix.net/post_inc/c3js/c3.js">c3.min.js</a><br></li>
 </ul>
 
-2. ### Command `npm i` in root directory
+2. ### Command `npm i || yarn add` in root directory
 
-3. ### Finally, you can start with `npm start` in terminal
+3. ### Finally, you can start with `npm start || yarn start` in terminal
 
 <br><hr><br>
 
 ## Feat
 
 - [x] Draw the graph of UnionLv using C3.js
-> - [ ] Accumulated graph by date<br>
+> - [x] Accumulated graph by date<br>
 > - [x] Draw the last 5 data
 
 - [x] Formating Date using Moment <br>
@@ -26,17 +26,6 @@
 - [x] Add Query condition of UnionLv
 > - [x] Sorting array in descending order to 'Lv' <br>
 > - [x] UnionLv don't add beyond 40 Characters
-
-<br><hr><br>
-
-## TO DO LIST _211022
-
-- [ ] 몽고디비 스키마 시간 불일치 에러 고치기
-> 서버를 키면, 시간이 가지 않는다. 재시작시 동기화됨(시간이 흐름) -><br>
-> moment 라이브러리 문제? 몽구스 문제?
-
-- [ ] Accumulated graph by date
-> 그래프 x축 데이터 updated 입력하기 -><br>
 
 <br><hr><br>
 
@@ -62,6 +51,7 @@ MongooseError: Query was already executed
 
 <br><hr><br>
 
-## Add Next Project
-- ### Delete EJS syntax & refactoring to jQuery
-- ### Add CSS to Bootstrap
+## Considerlation later
+<ul>
+    <li>Optimize logic of drawing graph</li>
+</ul>

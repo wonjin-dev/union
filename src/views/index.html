@@ -16,7 +16,9 @@
         let chart = c3.generate({
             bindto: '#sumLv',
             data: {
+                x: 'x',
                 columns: [
+                    ['x', 0, 1, 2, 3, 4, 5] ,
                     ['누적 유니온 레벨', 0, <%=graphArray%>]
                 ]
             }
