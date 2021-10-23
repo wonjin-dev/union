@@ -5,9 +5,9 @@
     <li><a href="http://b1ix.net/post_inc/c3js/c3.js">c3.min.js</a><br></li>
 </ul>
 
-2. ### Command `npm i || yarn add` in root directory
+2. ### Command `npm i || yarn` in root directory
 
-3. ### Finally, you can start with `npm start || yarn start` in terminal
+3. ### Finally, you can start with command `npm start || yarn start`
 
 <br><hr><br>
 
@@ -16,8 +16,6 @@
 - [x] Draw the graph of UnionLv using C3.js
 > - [x] Accumulated graph by date<br>
 > - [x] Draw the last 5 data
-
-- [x] Formating Date using Moment <br>
 
 - [x] Show the List of Characters in Database <br>
 
@@ -53,5 +51,6 @@ MongooseError: Query was already executed
 
 ## Considerlation later
 <ul>
+    <li>Add CSS</li>
     <li>Optimize logic of drawing graph</li>
 </ul>

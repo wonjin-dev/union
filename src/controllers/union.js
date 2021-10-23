@@ -29,12 +29,12 @@ const calculateUnionLv = async(findList) => {
             for(i=0; i < 40; i++){
                 unionSum += findList[i].lv
             }
-            return unionSum
+            return unionSum;
         }
         for(i in findList){
             unionSum += findList[i].lv
         }
-        return unionSum
+        return unionSum;
     } catch {
         console.log('유니온 계산 함수 실패');
     }
@@ -119,7 +119,7 @@ router.get('/updateUnion', async(req, res) => {
 router.post('/addUnion', async(req, res) => {
     const { name, role, lv } = req.body;
     try{
-        await saveCharacter(name, role, lv)
+        await saveCharacter(name, role, lv);
         const findList = await characterModel.find().sort({ lv: -1 }).limit(40);
         const unionSumLv = await calculateUnionLv(findList);
         await resaveSumLv(unionSumLv);
