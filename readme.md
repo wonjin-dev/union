@@ -46,11 +46,3 @@ MongooseError: Query was already executed
 
 > cause: Mongoose no longer allows executing the same query object twice <br>
 > solution: Seperate Query Function Find from Delete
-
-<br><hr><br>
-
-## Considerlation later
-<ul>
-    <li>Add CSS</li>
-    <li>Optimize logic of drawing graph</li>
-</ul>
