@@ -1,24 +1,23 @@
+const express = require('express');
+const router = express.Router();
 const characterModel = require('../models/character');
 const unionModel = require('../models/union');
 
-const express = require('express');
-const router = express.Router();
-
 const findCharacters = async() => {
     try {
-        let filteredArray = [];
-        const findList = await characterModel.find().sort({ lv: -1 });
+        let characterArray = [];
+        const findList = await characterModel.find().sort({lv: -1});
         for(i in findList){
-            filteredArray.push({
+            characterArray.push({
                 name: findList[i].name,
                 role: findList[i].role,
                 lv: findList[i].lv,
                 date: findList[i].updated
             });
         }
-        return filteredArray;
+        return characterArray;
     } catch {
-        console.log('캐릭터 배열 가공 함수 실패');
+        console.log('캐릭터 배열을 만드는 데 실패하였습니다');
     }
 }
 
@@ -36,7 +35,7 @@ const calculateUnionLv = async(findList) => {
         }
         return unionSum;
     } catch {
-        console.log('유니온 계산 함수 실패');
+        console.log('유니온 계산에 실패하였습니다');
     }
 }
 
@@ -49,14 +48,14 @@ const saveCharacter = async(name, role, lv) => {
         });
         await character.save();
     } catch {
-        console.log('캐릭터 저장 함수 실패');
+        console.log('캐릭터 저장 실패');
     }
 }
 
 const deleteCharacter = (model, _id) => {
     model.deleteOne(_id, (err)=>{
         if(err){
-            console.log('삭제 함수 실패');
+            console.log('캐릭터 삭제 실패');
         }
     });
 }
@@ -72,10 +71,10 @@ const resaveSumLv = async(lv) => {
     }
 }
 
-const forGraph = async() => {
+const createGraphArray = async() => {
     try{
         let recentArray = [];
-        let searchRecent = await unionModel.find().sort({ updated: -1 }).limit(5);
+        let searchRecent = await unionModel.find().sort({updated: -1}).limit(5);
         if(searchRecent.length < 5){
             recentArray = [0,0,0,0,0];
         } else {
@@ -87,23 +86,23 @@ const forGraph = async() => {
     }
 }
 
-router.get("/", async(req, res) => {
+router.get("/", async(res) => {
     try{
         const unionList = await findCharacters();
         const LastUnion = await unionModel.find().sort({ updated: -1 }).limit(1);
-        const graphArray = await forGraph();
+        const graphArray = await createGraphArray();
         if(LastUnion.length === 0){
             unionLv = 0;
         } else {
             unionLv = 0 + LastUnion[0].lv;
         }
-        return res.render('index.html', { graphArray, unionLv, unionList });
+        return res.render('index.html', {graphArray, unionLv, unionList});
     } catch {
         console.log('\'/\' 라우팅 실패');
     }
 });
 
-router.get('/addUnion', (req, res) => {
+router.get('/addUnion', (res) => {
     return res.render('addUnion.html');
 });
 
@@ -117,10 +116,10 @@ router.get('/updateUnion', async(req, res) => {
 });
 
 router.post('/addUnion', async(req, res) => {
-    const { name, role, lv } = req.body;
+    const {name, role, lv} = req.body;
     try{
         await saveCharacter(name, role, lv);
-        const findList = await characterModel.find().sort({ lv: -1 }).limit(40);
+        const findList = await characterModel.find().sort({lv: -1}).limit(40);
         const unionSumLv = await calculateUnionLv(findList);
         await resaveSumLv(unionSumLv);
         res.redirect('/');
@@ -130,11 +129,11 @@ router.post('/addUnion', async(req, res) => {
 });
 
 router.post('/updateUnion', async(req, res) => {
-    const { name, updatedLv } = req.body;
+    const {name, updatedLv} = req.body;
     try{
-        const findCharacter = await characterModel.find({ name: name });
-        await characterModel.findByIdAndUpdate(findCharacter[0]._id, {$set: { lv: updatedLv }});
-        const refindList = await characterModel.find().sort({ lv: -1 }).limit(40);
+        const findCharacter = await characterModel.find({name: name});
+        await characterModel.findByIdAndUpdate(findCharacter[0]._id, {$set: {lv: updatedLv}});
+        const refindList = await characterModel.find().sort({lv: -1}).limit(40);
         const updatedSumLv = await calculateUnionLv(refindList);
         await resaveSumLv(updatedSumLv);
         return res.redirect('/updateUnion');
@@ -144,11 +143,11 @@ router.post('/updateUnion', async(req, res) => {
 });
 
 router.post('/deleteUnion', async(req, res) => {
-    const { name } = req.body;
+    const {name} = req.body;
     try{
         const findCharacter = await characterModel.find({ name: name });
         deleteCharacter(characterModel, findCharacter[0]._id);
-        const refindList = await characterModel.find().sort({ lv: -1 }).limit(40);
+        const refindList = await characterModel.find().sort({lv: -1}).limit(40);
         const updatedSumLv = await calculateUnionLv(refindList);
         await resaveSumLv(updatedSumLv);
         return res.redirect('/');

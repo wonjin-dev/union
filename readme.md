@@ -7,7 +7,9 @@
 
 2. ### Command `npm i || yarn` in root directory
 
-3. ### Finally, you can start with command `npm start || yarn start`
+3. ### command `npm start || yarn start` again
+
+4. ### ### Finally, you can start with `localhost:3000`
 
 <br><hr><br>
 

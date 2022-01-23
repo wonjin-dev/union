@@ -11,7 +11,6 @@ app.use(express.static(__dirname + '/src'));
 app.use("/dist", express.static(path.join(__dirname, "../dist")));
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/union', {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection;
 
 app.use('/', require('./controllers/union'));
 
