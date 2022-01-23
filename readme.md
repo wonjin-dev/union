@@ -9,7 +9,7 @@
 
 3. ### command `npm start || yarn start` again
 
-4. ### ### Finally, you can start with `localhost:3000`
+4. ### Finally, you can start with `localhost:3000`
 
 <br><hr><br>
 
