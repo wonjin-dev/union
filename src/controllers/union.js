@@ -86,7 +86,7 @@ const createGraphArray = async() => {
     }
 }
 
-router.get("/", async(res) => {
+router.get("/", async(req, res) => {
     try{
         const unionList = await findCharacters();
         const LastUnion = await unionModel.find().sort({ updated: -1 }).limit(1);
@@ -102,7 +102,7 @@ router.get("/", async(res) => {
     }
 });
 
-router.get('/addUnion', (res) => {
+router.get('/addUnion', (req, res) => {
     return res.render('addUnion.html');
 });
 
