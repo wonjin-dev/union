@@ -29,7 +29,7 @@
 
 <br><hr><br>
 
-## The history of problems handling when developing this project
+## Trouble shooting
 
 - [x] ***Fix 1***
 
